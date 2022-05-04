@@ -68,6 +68,16 @@
                 </xpath>
             </field>
         </record>
-
+        <record id="view_account_invoice_tree_inherit" model="ir.ui.view">
+            <field name="name">view.account.invoice.tree.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="type" invisible="1"></field>
+                    <field name="is_reconciled" optional="hide" attrs="{'invisible': [('type', '!=', 'entry')]}"/>
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>

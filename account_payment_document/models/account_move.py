@@ -31,6 +31,26 @@ class AccountMove(models.Model):
         currency_field='company_currency_id'
     )
 
+    is_reconciled = fields.Selection([
+        ('yes', 'Si'),
+        ('no', 'No'),
+        ('partially', 'Parcialmente')],
+        string="Conciliado",
+        compute="_compute_is_reconciled"
+    )
+
+    @api.depends("line_ids.reconciled", "line_ids.full_reconcile_id")
+    def _compute_is_reconciled(self):
+        for record in self:
+            move_line_ids = record.line_ids.filtered(lambda x: x.move_id.move_type in ['receivable', 'receivable_refund'])
+            conciled = len([move_line_id.id for move_line_id in move_line_ids.filtered(lambda x: x.reconciled and x.full_reconcile_id)])
+            if conciled == len(move_line_ids.ids):
+                record.is_reconciled = 'yes'
+            elif conciled < len(move_line_ids.ids) and conciled != 0:
+                record.is_reconciled = 'partially'
+            else:
+                record.is_reconciled = 'no'
+
     def _compute_payment_ids(self):
         for record in self:
             document_lines = self.env["account.document.line"].search([("move_line_id", "in", record.line_ids.ids)])
