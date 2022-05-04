@@ -72,7 +72,7 @@ class AccountPaymentOrder(models.Model):
 
                 # Iterate payment lines to reconcile expired ones
                 for pline in order.payment_line_ids:
-                    if pline.ml_maturity_date <= today:
+                    if pline.ml_maturity_date and pline.ml_maturity_date <= today:
                         doc = pline.move_line_id.move_id.line_ids.mapped('document_line_id')
                         # If line is related to a payment document AND the payment mode of this document has
                         # charge_financed = True, we create the cancellation move.
@@ -258,7 +258,7 @@ class AccountPaymentOrder(models.Model):
                             #     lines_to_rec.reconcile()
 
                 for bline in order.bank_line_ids:
-                    if all([pline.ml_maturity_date <= today
+                    if all([pline.ml_maturity_date and pline.move_line_id and pline.ml_maturity_date <= today
                             and not pline.move_line_id.reconciled
                             for pline in bline.payment_line_ids]):
                         bline.reconcile_payment_lines()
@@ -381,6 +381,7 @@ class AccountPaymentOrder(models.Model):
                 doc.write({
                     'state': 'open'
                 })
+        self.payment_line_ids.move_line_id._compute_amount_on_receivables()
 
     def write(self, values):
         if self.payment_type == 'inbound' and 'payment_line_ids' in values:

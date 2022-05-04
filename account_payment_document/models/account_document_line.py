@@ -47,7 +47,7 @@ class AccountDocumentLine(models.Model):
         help="Label of the payment that will be seen by the destinee")
     communication_type = fields.Selection([
         ('normal', 'Free'),
-        ], string='Communication Type', required=True, default='normal')
+    ], string='Communication Type', required=True, default='normal')
 
     invoice_state = fields.Selection(
         related="move_line_id.move_id.invoice_payment_state")
@@ -61,6 +61,8 @@ class AccountDocumentLine(models.Model):
                     line.amount_currency, line.company_currency_id,
                     line.company_id, line.date or fields.Date.today(),
                 )
+            else:
+                line.amount_company_currency = 0
 
     def invoice_reference_type2communication_type(self):
         """This method is designed to be inherited by
@@ -83,5 +85,3 @@ class AccountDocumentLine(models.Model):
             self.amount_currency = 0.0
             self.currency_id = self.env.user.company_id.currency_id
             self.communication = False
-
-

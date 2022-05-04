@@ -32,6 +32,7 @@
                                     <field name="ml_maturity_date"/>
                                     <field name="date"/>
                                     <field name="amount_currency"/>
+                                    <field name="state"/>
                                 </tree>
                                 <form>
                                     <group>
@@ -40,6 +41,7 @@
                                         <field name="ml_maturity_date"/>
                                         <field name="date"/>
                                         <field name="amount_currency"/>
+                                        <field name="state"/>
                                     </group>
 
                                 </form>
@@ -52,6 +54,7 @@
                                     <field name="ml_maturity_date"/>
                                     <field name="date"/>
                                     <field name="amount_currency"/>
+                                    <field name="state"/>
                                 </tree>
                                 <form>
                                     <group>
@@ -60,6 +63,7 @@
                                         <field name="ml_maturity_date"/>
                                         <field name="date"/>
                                         <field name="amount_currency"/>
+                                        <field name="state"/>
                                     </group>
                                 </form>
                             </field>

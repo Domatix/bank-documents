@@ -73,7 +73,7 @@ class ExpireOrderCron(models.Model):
 
                 # Iterate payment lines to reconcile expired ones
                 for pline in order.payment_line_ids:
-                    if pline.ml_maturity_date <= today:
+                    if pline.ml_maturity_date and pline.ml_maturity_date <= today:
                         doc = pline.move_line_id.move_id.line_ids.mapped('document_line_id')
                         # If line is related to a payment document AND the payment mode of this document has
                         # charge_financed = True, we create the cancellation move.

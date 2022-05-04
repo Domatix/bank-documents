@@ -100,9 +100,9 @@ class AccountMove(models.Model):
 
                     for line in lines:
                         if line.payment_line_ids:
-                            amount += sum(line.payment_line_ids.mapped('amount_currency')) * sign
+                            amount += sum(line.payment_line_ids.filtered(lambda r: r.order_id.state != 'cancel').mapped('amount_currency')) * sign
                         if line.document_line_ids:
-                            amount += sum(line.document_line_ids.mapped('amount_currency')) * sign
+                            amount += sum(line.document_line_ids.filtered(lambda r: r.document_id.state != 'cancel').mapped('amount_currency')) * sign
 
                     if record.returned_payment:
                         returned_reconciles = self.env["account.partial.reconcile"].search(
