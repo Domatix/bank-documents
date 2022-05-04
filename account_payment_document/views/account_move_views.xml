@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_invoice_tree" model="ir.ui.view">
+            <field name="name">account.invoice.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_residual_signed']" position="after">
+                    <field name="amount_pending_on_receivables" sum="Pending on receivables"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_form" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='date_maturity']" position="replace">
+                    <field name="date_maturity" required="0" invisible="0"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page id="payment_ids" string="Cobros/pagos"
+                          attrs="{'invisible': [('document_line_ids', '=', []), ('payment_line_ids', '=', [])]}">
+                        <group>
+                            <field name="payment_line_ids" string="Líneas de órdenes de cobro/pago"
+                                   attrs="{'invisible': [('payment_line_ids', '=', [])]}">
+                                <tree>
+                                    <field name="order_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="ml_maturity_date"/>
+                                    <field name="date"/>
+                                    <field name="amount_currency"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="order_id"/>
+                                        <field name="partner_id"/>
+                                        <field name="ml_maturity_date"/>
+                                        <field name="date"/>
+                                        <field name="amount_currency"/>
+                                    </group>
+
+                                </form>
+                            </field>
+                            <field name="document_line_ids" string="Líneas de documentos recibidos"
+                                   attrs="{'invisible': [('document_line_ids', '=', [])]}">
+                                <tree>
+                                    <field name="document_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="ml_maturity_date"/>
+                                    <field name="date"/>
+                                    <field name="amount_currency"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="document_id"/>
+                                        <field name="partner_id"/>
+                                        <field name="ml_maturity_date"/>
+                                        <field name="date"/>
+                                        <field name="amount_currency"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

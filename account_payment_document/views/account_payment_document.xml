@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="account_payment_document_form" model="ir.ui.view">
+    <field name="name">account.payment.document.form</field>
+    <field name="model">account.payment.document</field>
+    <field name="arch" type="xml">
+      <form string="Payment Document">
+        <header>
+          <button name="%(account_document_line_create_action)d" type="action" string="Create Payment Lines from Journal Items" states="draft" class="oe_highlight"/>
+          <button name="draft2open" type="object" states="draft" string="Confirm Document" class="oe_highlight"/>
+          <button name="cancel2draft" type="object" states="cancel" string="Back to Draft"/>
+          <button name="action_cancel" type="object" states="draft" string="Cancel Payments"/>
+          <button name="action_paid_cancel" type="object" states="open,advanced,paid" string="Cancel Payments"/>
+          <button name="action_paid_cancel" type="object" states="paid" string="Unpaid"/>
+          <field name="state" widget="statusbar" statusbar_visible="draft,open,paid"/>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <label for="name" class="oe_edit_only"/>
+            <h1><field name="name"/></h1>
+          </div>
+          <group name="head" col="2">
+            <group name="head-left">
+              <field name="partner_id" domain="[('parent_id', '=', False)]"/>
+              <field name="payment_mode_id" domain="[('payment_order_ok', '=', True), ('payment_type', '=', payment_type)]" widget="selection"/>
+              <field name="allowed_journal_ids" invisible="1"/>
+              <field name="journal_id" widget="selection" domain="[('id', 'in', allowed_journal_ids)]"/>
+              <field name="bank_account_link" invisible="1"/>
+              <field name="company_id" groups="base.group_multi_company"/>
+              <field name="payment_type" invisible="0"/>
+            </group>
+            <group name="head-right">
+              <field name="date"/>
+              <field name="date_prefered"/>
+              <field name="date_due" attrs="{'invisible': [('date_prefered', '!=', 'due')], 'required': [('date_prefered', '=', 'due')]}"/>
+<!--              <field name="document_due_move_account_id" attrs="{'invisible': [('date_prefered', '!=', 'due')], 'required': [('date_prefered', '=', 'due')]}"/>-->
+<!--              <field name="expiration_move_journal_id" attrs="{'invisible': [('date_prefered', '!=', 'due')], 'required': [('date_prefered', '=', 'due')]}"/>-->
+              <field name="expiration_move_id" attrs="{'invisible': [('expiration_move_id', '=', False)]}"/>
+              <field name="description"/>
+              <field name="payment_order_id" attrs="{'invisible': [('payment_order_id', '=', False)]}"/>
+            </group>
+          </group>
+          <notebook>
+            <page name="payment-lines" string="Transactions">
+              <field name="document_line_ids" context="{'default_payment_type': payment_type}"/>
+            </page>
+            <page name="moves" string="Transfer Journal Entries">
+              <field name="move_ids"/>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="account_payment_document_tree" model="ir.ui.view">
+    <field name="name">account.payment.document.tree</field>
+    <field name="model">account.payment.document</field>
+    <field name="arch" type="xml">
+      <tree string="Received Documents" decoration-info="state=='draft'" decoration-success="state=='paid'" decoration-danger="state=='unpaid'" decoration-muted="state=='cancel'">
+        <field name="name"/>
+        <field name="partner_id"/>
+        <field name="payment_mode_id"/>
+        <field name="journal_id"/>
+        <field name="company_id" groups="base.group_multi_company"/>
+        <field name="description"/>
+        <field name="date_due"/>
+        <field name="total_company_currency" sum="Total Company Currency"/>
+         <field name="payment_order_id" invisible="not context.get('account_payment_document_main_view')"/>
+        <field name="company_currency_id" invisible="1"/>
+        <field name="state"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="account_payment_document_search" model="ir.ui.view">
+    <field name="name">account.payment.document.search</field>
+    <field name="model">account.payment.document</field>
+    <field name="arch" type="xml">
+      <search string="Search Received Documents">
+        <field name="description" filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]" string="Name or Description"/>
+        <field name="partner_id"/>
+        <field name="journal_id"/>
+        <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+        <filter name="open" string="Confirmed" domain="[('state', '=', 'open')]"/>
+        <filter name="generated" string="File Generated" domain="[('state', '=', 'generated')]"/>
+        <filter name="avanced" string="Advanced" domain="[('state', '=', 'advanced')]"/>
+        <filter name="paid" string="Paid" domain="[('state', '=', 'paid')]"/>
+        <filter name="unpaid" string="Unpaid" domain="[('state', '=', 'unpaid')]"/>
+        <group string="Group By" name="groupby">
+          <filter name="payment_mode_groupby" string="Payment Mode" context="{'group_by': 'payment_mode_id'}"/>
+          <filter name="journal_groupby" string="Bank Journal" context="{'group_by': 'journal_id'}"/>
+          <filter name="state_groupby" string="State" context="{'group_by': 'state'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="account_payment_document_inbound_action" model="ir.actions.act_window">
+    <field name="name">Received Documents</field>
+    <field name="res_model">account.payment.document</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('payment_type', '=', 'inbound')]</field>
+    <field name="context">{'default_payment_type': 'inbound', 'account_payment_document_main_view': True}</field>
+  </record>
+  <record id="account_payment_document_outbound_action" model="ir.actions.act_window">
+    <field name="name">Generated Documents</field>
+    <field name="res_model">account.payment.document</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('payment_type', '=', 'outbound')]</field>
+    <field name="context">{'default_payment_type': 'outbound', 'account_payment_document_main_view': True}</field>
+  </record>
+  <record id="account_payment_document_lines_action" model="ir.actions.act_window">
+    <field name="name">Líneas de documentos recibidos</field>
+    <field name="res_model">account.document.line</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="account_payment_document_outbound_menu" action="account_payment_document_inbound_action" parent="account.menu_finance_receivables" sequence="20"/>
+  <menuitem id="account_payment_document_inbound_menu" action="account_payment_document_outbound_action" parent="account.menu_finance_payables" sequence="21"/>
+
+</odoo>

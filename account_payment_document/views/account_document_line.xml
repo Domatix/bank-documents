@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="account_document_line_form" model="ir.ui.view">
+    <field name="name">account.document.line.form</field>
+    <field name="model">account.document.line</field>
+    <field name="arch" type="xml">
+      <form string="Document Lines">
+        <group name="main" col="2">
+          <group name="left">
+            <field name="document_id" invisible="not context.get('account_document_line_main_view')"/>
+            <field name="move_line_id" domain="[('reconciled','=', False), ('account_id.reconcile', '=', True)] "/>
+            <field name="date"/>
+            <field name="ml_maturity_date" readonly="1"/>
+            <field name="amount_currency"/>
+            <field name="currency_id"/>
+            <field name="partner_id"/>
+            <field name="communication_type"/>
+            <field name="communication"/>
+          </group>
+          <group name="right">
+            <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+            <field name="amount_company_currency"/>
+            <field name="company_currency_id" invisible="1"/>
+            <field name="payment_type" invisible="1"/>
+          </group>
+        </group>
+      </form>
+    </field>
+  </record>
+
+  <record id="account_document_line_tree" model="ir.ui.view">
+    <field name="name">account.document.line.tree</field>
+    <field name="model">account.document.line</field>
+    <field name="arch" type="xml">
+      <tree string="Document Lines">
+        <field name="document_id" invisible="not context.get('account_document_line_main_view')"/>
+        <field name="partner_id"/>
+        <field name="communication"/>
+        <field name="move_line_id" invisible="0"/>
+        <field name="ml_maturity_date"/>
+        <field name="date"/>
+        <field name="amount_currency" string="Amount" sum="Total"/>
+        <field name="currency_id"/>
+        <field name="invoice_state"/>
+        <field name="amount_company_currency" sum="Total in Company Currency" invisible="1"/>
+        <field name="payment_type" invisible="1"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="account_document_line_action" model="ir.actions.act_window">
+    <field name="name">Document Lines</field>
+    <field name="res_model">account.document.line</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{'account_document_line_main_view': True}</field>
+  </record>
+
+  <record id="account_document_line_search" model="ir.ui.view">
+    <field name="name">account.document.line.search</field>
+    <field name="model">account.document.line</field>
+    <field name="arch" type="xml">
+      <search string="Buscar líneas de documentos recibidos">
+        <field name="partner_id"/>
+      </search>
+    </field>
+  </record>
+
+</odoo>

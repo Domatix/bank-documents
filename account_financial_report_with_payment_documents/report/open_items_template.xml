@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>Open_Items[account_id].sorted(key=lambda r: r.date_maturity)
+    <template inherit_id="account_financial_report.report_open_items_base" id="report_open_items_base">
+        <xpath expr="//t[@t-foreach='Open_Items.keys()']/t[@t-if='not show_partner_details']/div/t[@t-foreach='Open_Items[account_id]']"
+               position="replace">
+            <t t-foreach="sorted(Open_Items[account_id], key=lambda r: datetime.datetime(1950, 1, 1) if r['date_maturity'] is False else datetime.datetime.strptime(r['date_maturity'], '%d/%m/%Y'))"
+               t-as="line">
+                <t t-if="not line['date_maturity'] or not date_maturity_at"
+                   t-call="account_financial_report.report_open_items_lines"
+                />
+                <t t-else="">
+                    <t t-if="line['date_maturity'] and datetime.datetime.strptime(line['date_maturity'], '%d/%m/%Y') &lt;= datetime.datetime.strptime(date_maturity_at, '%Y-%m-%d')"
+                       t-call="account_financial_report.report_open_items_lines"
+                    />
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-foreach='Open_Items.keys()']/t[@t-if='show_partner_details']/div/t[@t-foreach='Open_Items[account_id]']/div[hasclass('data_table')]/t[@t-foreach='Open_Items[account_id][partner_id]']"
+               position="replace">
+            <t
+                    t-foreach="sorted(Open_Items[account_id][partner_id], key=lambda r: datetime.datetime(1950, 1, 1) if r['date_maturity'] is False else datetime.datetime.strptime(r['date_maturity'], '%d/%m/%Y'))"
+                    t-as="line"
+            >
+                <t t-if="not line['date_maturity'] or not date_maturity_at"
+                   t-call="account_financial_report.report_open_items_lines"
+                />
+                <t t-else="">
+                    <t t-if="line['date_maturity'] and datetime.datetime.strptime(line['date_maturity'], '%d/%m/%Y') &lt;= datetime.datetime.strptime(date_maturity_at, '%Y-%m-%d')"
+                       t-call="account_financial_report.report_open_items_lines"
+                    />
+                </t>
+            </t>
+        </xpath>
+
+        <xpath expr="//div" position="after">
+            <div class="act_as_table list_table" style="width: 100%;">
+                <div class="act_as_row labels" style="font-weight: bold;">
+
+                    <t t-if="show_partner_details">
+                        <div class="act_as_cell first_column" style="width: 34.77%;">
+                            Total cuentas
+                        </div>
+                        <div class="act_as_cell right" style="width: 10.57%;">Saldo hasta vto | Saldo después de vto
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="act_as_cell first_column" style="width: 43.27%;">
+                            Total cuentas
+                        </div>
+                        <div class="act_as_cell right" style="width: 10.57%;">Saldo hasta vto | Saldo después de vto
+                        </div>
+                    </t>
+
+                    <!--## date_due-->
+                    <div class="act_as_cell" style="width: 6.47%;"/>
+                    <!--## amount_total_due-->
+                    <div class="act_as_cell amount" style="width: 6.57%;">
+                        <span
+                                t-esc="total_amount['total_original_pre_maturity']"
+                                t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                        />
+                        <span>
+                            |
+                        </span>
+                        <span
+                                t-esc="total_amount['total_original_post_maturity']"
+                                t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                        />
+                    </div>
+                    <!--## amount_currency-->
+                    <div class="act_as_cell amount" style="width: 6.57%;">
+
+                        <span
+                                t-esc="total_amount['total_residual_pre_maturity']"
+                                t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                        />
+                        <span>
+                            |
+                        </span>
+                        <span
+                                t-esc="total_amount['total_residual_post_maturity']"
+                                t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                        />
+
+                    </div>
+
+                    <div class="act_as_cell amount" style="width: 6.57%;">
+
+                        <span
+                                t-esc="total_amount['total_amount_pending_on_receivables_pre_maturity']"
+                                t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                        />
+                        <span>
+                            |
+                        </span>
+                        <span
+                                t-esc="total_amount['total_amount_pending_on_receivables_post_maturity']"
+                                t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                        />
+                    </div>
+                    <t t-if="foreign_currency">
+                        <!--## currency_name-->
+                        <div class="act_as_cell"/>
+                        <!--## amount_total_due_currency-->
+                        <div class="act_as_cell"/>
+                        <!--## amount_residual_currency-->
+                        <div class="act_as_cell"/>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template inherit_id="account_financial_report.report_open_items_filters" id="report_open_items_filters">
+        <xpath expr="//div/div[1]/div[1]" position="after">
+            <t t-if="date_from">
+                <div class="act_as_cell">Fecha de inicio</div>
+            </t>
+            <t t-if="invoice_date_due_at">
+                <div class="act_as_cell">(Hasta) Fecha de vencimiento</div>
+            </t>
+
+
+        </xpath>
+        <xpath expr="//div/div[2]/div[1]" position="after">
+            <t t-if="date_from">
+                <div class="act_as_cell">
+                    <span t-esc="date_from"/>
+                </div>
+            </t>
+            <t t-if="invoice_date_due_at">
+                <div class="act_as_cell">
+                    <span t-esc="invoice_date_due_at"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <template inherit_id="account_financial_report.report_open_items_lines" id="report_open_items_lines">
+        <xpath expr="//div[hasclass('act_as_row')]/div[1]" position="after">
+            <div class="act_as_cell left">
+                <t t-if="line['invoice_date']">
+                    <span t-raw="line['invoice_date'].strftime('%d/%m/%Y')"/>
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('act_as_row')]/div[4]" position="after">
+            <div class="act_as_cell left">
+                <span t-esc="line['payment_mode_id']"/>
+            </div>
+            <div class="act_as_cell left">
+                <span t-esc="line['payment_term_id']"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('act_as_row')]/div[8]"
+               position="replace">
+            <t t-if="not show_partner_details">
+                <div class="act_as_cell left">
+                    <span
+                            t-if="line.get('partner_id', False)"
+                            t-att-res-id="line['partner_id']"
+                            res-model="res.partner"
+                            view-type="form"
+                    >
+                        <t t-esc="line['partner_name']"/>
+                    </span>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('act_as_row')]/div[11]"
+               position="after">
+            <div class="act_as_cell amount">
+                <span
+                        t-esc="line['amount_pending_on_receivables']"
+                        t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                />
+            </div>
+        </xpath>
+    </template>
+
+    <template inherit_id="account_financial_report.report_open_items_lines_header" id="report_open_items_lines_header">
+        <xpath expr="//div[hasclass('act_as_thead')]/div/div[1]" position="replace">
+            <div class="act_as_cell first_column" style="width: 3.41%;">Fecha</div>
+        </xpath>
+        <xpath expr="//div[hasclass('act_as_thead')]/div/div[1]" position="after">
+            <div class="act_as_cell" style="width: 3.41%;">Fecha factura</div>
+        </xpath>
+        <xpath expr="//div[hasclass('act_as_thead')]/div/div[4]" position="after">
+            <div class="act_as_cell" style="width: 5%;">Modo de pago</div>
+            <div class="act_as_cell" style="width: 5%;">Plazo de pago</div>
+        </xpath>
+        <xpath expr="//div[hasclass('act_as_thead')]/div/div[7]" position="replace">
+            <div class="act_as_cell" style="width: 3.41%;">Cuenta</div>
+        </xpath>
+        <xpath expr="//div[hasclass('act_as_thead')]/div/div[8]" position="replace">
+            <t t-if="not show_partner_details">
+                <div class="act_as_cell" style="width: 8.50%;">Empresa</div>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('act_as_thead')]/div/div[8]" position="replace">
+            <div class="act_as_cell" style="width: 10.57%;">Ref - Etiqueta</div>
+        </xpath>
+        <xpath expr="//div[hasclass('act_as_thead')]/div/div[11]" position="after">
+            <div class="act_as_cell" style="width: 6.57%;">Remanente sin documento</div>
+        </xpath>
+    </template>
+
+    <template inherit_id="account_financial_report.report_open_items_ending_cumul" id="report_open_items_ending_cumul">
+        <xpath expr="//div[hasclass('list_table')]/div[hasclass('labels')]/div[2]" position="replace">
+            <div class="act_as_cell amount" style="width: 6.57%;">
+                <t t-if='type == "account_type"'>
+                    <span
+                            t-esc="total_amount[account_id]['original_pre_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                    <span>
+                        |
+                    </span>
+                    <span
+                            t-esc="total_amount[account_id]['original_post_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                </t>
+                <t t-if='type == "partner_type"'>
+                    <span
+                            t-esc="total_amount[account_id][partner_id]['original_pre_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                    <span>
+                        |
+                    </span>
+                    <span
+                            t-esc="total_amount[account_id][partner_id]['original_post_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('list_table')]/div[hasclass('labels')]/div[3]" position="replace">
+            <div class="act_as_cell amount" style="width: 6.57%;">
+                <t t-if='type == "account_type"'>
+                    <span
+                            t-esc="total_amount[account_id]['residual_pre_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                    <span>
+                        |
+                    </span>
+                    <span
+                            t-esc="total_amount[account_id]['residual_post_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                </t>
+                <t t-if='type == "partner_type"'>
+                    <span
+                            t-esc="total_amount[account_id][partner_id]['residual_pre_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                    <span>
+                        |
+                    </span>
+                    <span
+                            t-esc="total_amount[account_id][partner_id]['residual_post_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('list_table')]/div[hasclass('labels')]/div[3]" position="after">
+            <div class="act_as_cell amount" style="width: 6.57%;">
+                <t t-if='type == "account_type"'>
+                    <span
+                            t-esc="total_amount[account_id]['amount_pending_on_receivables_pre_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                    <span>
+                        |
+                    </span>
+                    <span
+                            t-esc="total_amount[account_id]['amount_pending_on_receivables_post_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                </t>
+                <t t-if='type == "partner_type"'>
+                    <span
+                            t-esc="total_amount[account_id][partner_id]['amount_pending_on_receivables_pre_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                    <span>
+                        |
+                    </span>
+                    <span
+                            t-esc="total_amount[account_id][partner_id]['amount_pending_on_receivables_post_maturity']"
+                            t-options="{'widget': 'monetary', 'display_currency': company_currency}"
+                    />
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('list_table')]/div[hasclass('labels')]/t[1]" position="replace">
+            <t t-if='type == "account_type"'>
+                <t t-if="show_partner_details">
+                    <div class="act_as_cell first_column" style="width: 34.77%;">
+                        <span t-esc="accounts_data[account_id]['code']"/>
+                        -
+                        <span t-esc="accounts_data[account_id]['name']"/>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div class="act_as_cell first_column" style="width: 43.27%;">
+                        <span t-esc="accounts_data[account_id]['code']"/>
+                        -
+                        <span t-esc="accounts_data[account_id]['name']"/>
+                    </div>
+                </t>
+                <div class="act_as_cell right" style="width: 10.57%;">Saldo final</div>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('list_table')]/div[hasclass('labels')]/t[2]" position="replace">
+            <t t-if='type == "partner_type"'>
+                <t t-if="show_partner_details">
+                    <div class="act_as_cell first_column" style="width: 34.77%;"/>
+                </t>
+                <t t-else="">
+                    <div class="act_as_cell first_column" style="width: 43.27%;"/>
+                </t>
+                <div
+                        class="act_as_cell right"
+                        style="width: 10.57%;"
+                >Saldo hasta vto | Saldo después de vto
+                </div>
+            </t>
+        </xpath>
+
+    </template>
+
+</odoo>

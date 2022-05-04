@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+  <t t-name="reconciliation.line.create.document" t-extend="reconciliation.line.create">
+    <t t-jquery=".create_analytic_account_id" t-operation="before">
+      <tr class="create_document_id">
+        <td class="o_td_label">
+          <label class="o_form_label">Related Document</label>
+        </td>
+        <td class="o_td_field"></td>
+      </tr>
+      <tr class="create_order_id">
+        <td class="o_td_label">
+          <label class="o_form_label">Related Order</label>
+        </td>
+        <td class="o_td_field"></td>
+      </tr>
+    </t>
+  </t>
+
+</templates>

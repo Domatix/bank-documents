@@ -1,0 +1,978 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_payment_document
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-14 09:55+0000\n"
+"PO-Revision-Date: 2021-05-14 09:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_payment_document
+#. openerp-web
+#: code:addons/account_payment_document/static/src/js/reconciliation_renderer.js:0
+#: code:addons/account_payment_document/static/src/js/reconciliation_renderer.js:0
+#: code:addons/addons/Disber/account_payment_document/static/src/js/reconciliation_renderer.js:0
+#: code:addons/addons/Disber/account_payment_document/static/src/js/reconciliation_renderer.js:0
+#, python-format
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: account_payment_document
+#: model:ir.actions.server,name:account_payment_document.ir_cron_account_move_overdue_payment_order_ir_actions_server
+#: model:ir.cron,cron_name:account_payment_document.ir_cron_account_move_overdue_payment_order
+#: model:ir.cron,name:account_payment_document.ir_cron_account_move_overdue_payment_order
+msgid "Account Move for overdue payment orders"
+msgstr "Asiento para ordenes vencidas"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_account_reconciliation_widget
+msgid "Account Reconciliation widget"
+msgstr "Widget de reconciliación de cuenta"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_needaction
+msgid "Action Needed"
+msgstr "Acción Necesaria"
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_document_line__bank_account_required
+msgid ""
+"Activate this option if this payment method requires you to know the bank "
+"account number of your customer or supplier."
+msgstr ""
+"Activa esta opción si este método de pago debe requerirte informar el número"
+" de cuenta bancaria de tu cliente o proveedor."
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_create_form
+msgid "Add All Move Lines"
+msgstr "Añadir todos los apuntes contables"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__state__advanced
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "Advanced"
+msgstr "Anticipado"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_document_line_create__target_move__all
+msgid "All Entries"
+msgstr "Todos los asientos"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_document_line_create__target_move__posted
+msgid "All Posted Entries"
+msgstr "Todos los asientos asentados"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__allow_blocked
+msgid "Allow Litigation Move Lines"
+msgstr "Permitir apuntes en litigio"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__allowed_journal_ids
+msgid "Allowed journals"
+msgstr "Diarios de banco permitidos"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__amount_currency
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_tree
+msgid "Amount"
+msgstr "Importe"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__amount_company_currency
+msgid "Amount in Company Currency"
+msgstr "Importes moneda compañía"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_move__amount_pending_on_receivables
+#: model:ir.model.fields,field_description:account_payment_document.field_account_move_line__amount_pending_on_receivables
+msgid "Amount pending on receivables"
+msgstr "Cantidad pendiente sin documento"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_document_line_create__payment_mode__any
+msgid "Any"
+msgstr "Cualquiera"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_attachment_count
+msgid "Attachment Count"
+msgstr "Conteo de archivos adjuntos"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_form
+msgid "Back to Draft"
+msgstr "Devolver a borrador"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__bank_account_required
+msgid "Bank Account Required"
+msgstr "Cuenta bancaria requerida"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "Bank Journal"
+msgstr "Diario de banco"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr "Línea de extracto bancario"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__state__cancel
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_create_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_form
+msgid "Cancel Payments"
+msgstr "Cancelar pagos"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_mode__cancellation_account_id
+msgid "Cancellation account"
+msgstr "Cuenta de cancelación"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_mode__cancellation_journal_id
+msgid "Cancellation journal"
+msgstr "Diario de cancelación"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_create_form
+msgid "Choose Move Lines Filter Options"
+msgstr "Escoja las opciones de filtro de apuntes"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_create_form
+msgid ""
+"Click on Add All Move Lines to auto-select the move lines matching the above"
+" criteria or click on Add an item to manually select the move lines filtered"
+" by the above criteria."
+msgstr ""
+"Pulse en \"Añadir todos los apuntes\" para auto-seleccionar los apuntes que "
+"casen con los criterios de arriba o pulse en \"Añadir un elemento\" para "
+"seleccionar manualmente las líneas filtradas por los criterios de arriba."
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.view_move_form
+msgid "Cobros/pagos"
+msgstr ""
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__communication
+msgid "Communication"
+msgstr "Comunicación"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__communication_type
+msgid "Communication Type"
+msgstr "Tipo de comunicación"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__company_id
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_form
+msgid "Confirm Document"
+msgstr "Confirmar"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__state__open
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_form
+msgid "Create Payment Lines from Journal Items"
+msgstr "Importar apuntes contables"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_create_form
+msgid "Create Transactions"
+msgstr "Crear transacciones"
+
+#. module: account_payment_document
+#: model:ir.actions.act_window,name:account_payment_document.account_document_line_create_action
+msgid "Create Transactions from Move Lines"
+msgstr "Crear transacciones de los apuntes"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__create_uid
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__create_uid
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__create_uid
+#: model:ir.model.fields,field_description:account_payment_document.field_expire_order_cron__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__create_date
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__create_date
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__create_date
+#: model:ir.model.fields,field_description:account_payment_document.field_expire_order_cron__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_expire_order_cron
+msgid "Cron to reconcile payments on expiration orders"
+msgstr "Cron para la conciliación de pagos en ordenes vencidas"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__company_currency_id
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__company_currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__currency_id
+msgid "Currency of the Payment Transaction"
+msgstr "Moneda de la transacción de pago"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__partner_id
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid "Debit document %s"
+msgstr "Documento de cobro %s"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid "Debit document line %s"
+msgstr "Linea de documento de cobro %s"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__display_name
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__display_name
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__display_name
+#: model:ir.model.fields,field_description:account_payment_document.field_expire_order_cron__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: account_payment_document
+#: model:ir.actions.act_window,name:account_payment_document.account_document_line_action
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_form
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_tree
+msgid "Document Lines"
+msgstr "Lineas de documento"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_move__document_line_ids
+#: model:ir.model.fields,field_description:account_payment_document.field_account_move_line__document_line_ids
+msgid "Document lines"
+msgstr "Lineas de documento"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__state__draft
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__ml_maturity_date
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__due_date
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_document_line_create__date_type__due
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__date_prefered__due
+msgid "Due Date"
+msgstr "Fecha vencimiento"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__expiration_move_id
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_order__expiration_move_id
+msgid "Expiration Account Move"
+msgstr "Asiento por vencimiento"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_order.py:0
+#: code:addons/account_payment_document/models/expire_cron.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_order.py:0
+#: code:addons/addons/Disber/account_payment_document/models/expire_cron.py:0
+#, python-format
+msgid "Expired Debit document %s"
+msgstr "Documento de cobro vencido %s"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_order.py:0
+#: code:addons/account_payment_document/models/expire_cron.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_order.py:0
+#: code:addons/addons/Disber/account_payment_document/models/expire_cron.py:0
+#, python-format
+msgid "Expired Debit order %s"
+msgstr "Orden de cobro %s expirada"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_order.py:0
+#: code:addons/account_payment_document/models/expire_cron.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_order.py:0
+#: code:addons/addons/Disber/account_payment_document/models/expire_cron.py:0
+#, python-format
+msgid "Expired Payment document %s"
+msgstr "Documento de pago vencido %s"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_order.py:0
+#: code:addons/account_payment_document/models/expire_cron.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_order.py:0
+#: code:addons/addons/Disber/account_payment_document/models/expire_cron.py:0
+#, python-format
+msgid "Expired Payment order %s"
+msgstr "Orden de pago %s espirada."
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "File Generated"
+msgstr "Fichero generado"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_payment_document__bank_account_link
+msgid ""
+"For payment modes that are always attached to the same bank account of your "
+"company (such as wire transfer from customers or SEPA direct debit from "
+"suppliers), select 'Fixed'. For payment modes that are not always attached "
+"to the same bank account (such as SEPA Direct debit for customers, wire "
+"transfer to suppliers), you should select 'Variable', which means that you "
+"will select the bank account on the payment order. If your company only has "
+"one bank account, you should always select 'Fixed'."
+msgstr ""
+"Para modos de pago que siempre estarán asociados a la misma cuenta bancaria "
+"de la compañía (como las transferencias bancarias de clientes o los débitos "
+"directos SEPA de proveedores), selecciona 'Fijado\". Para modos de pagos en "
+"los que puede cambiar la cuenta bancaria (como el débito directo de clientes"
+" o las transferencias de proveedores), seleccione 'Variable', lo que "
+"significa que podrá seleccionar la cuenta bancaria en la orden de pago. Si "
+"su compañía tiene una única cuenta bancaria, debería seleccionar siempre "
+"'Fijo'."
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_document_line__communication_type__normal
+msgid "Free"
+msgstr "Libre"
+
+#. module: account_payment_document
+#: model:ir.actions.act_window,name:account_payment_document.account_payment_document_outbound_action
+#: model:ir.ui.menu,name:account_payment_document.account_payment_document_inbound_menu
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_order_form
+msgid "Generated Documents"
+msgstr "Documentos generados"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__id
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__id
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__id
+#: model:ir.model.fields,field_description:account_payment_document.field_expire_order_cron__id
+msgid "ID"
+msgstr ""
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_payment_document__message_needaction
+#: model:ir.model.fields,help:account_payment_document.field_account_payment_document__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_payment_document__message_has_error
+#: model:ir.model.fields,help:account_payment_document.field_account_payment_document__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__date_prefered__now
+msgid "Immediately"
+msgstr "Inmediatamente"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__payment_type__inbound
+msgid "Inbound"
+msgstr "Entrante"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_account_move
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__move_ids
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_account_move_line
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__move_line_id
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__journal_ids
+msgid "Journals Filter"
+msgstr "Filtro de diarios"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_create_form
+msgid "Keep empty for using all journals"
+msgstr "Dejar vacío para usar todos los diarios"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_create_form
+msgid "Keep empty to use all partners"
+msgstr "Dejar vacío para usar todos los clientes"
+
+#. module: account_payment_document
+#. openerp-web
+#: code:addons/account_payment_document/static/src/js/reconciliation_renderer.js:0
+#: code:addons/addons/Disber/account_payment_document/static/src/js/reconciliation_renderer.js:0
+#, python-format
+msgid "Label"
+msgstr "Descripción"
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_document_line__communication
+msgid "Label of the payment that will be seen by the destinee"
+msgstr "Etiqueta del pago que será vista por el beneficiario"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line____last_update
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create____last_update
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document____last_update
+#: model:ir.model.fields,field_description:account_payment_document.field_expire_order_cron____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__write_uid
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__write_uid
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__write_uid
+#: model:ir.model.fields,field_description:account_payment_document.field_expire_order_cron__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__write_date
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__write_date
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__write_date
+#: model:ir.model.fields,field_description:account_payment_document.field_expire_order_cron__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__bank_account_link
+msgid "Link to Bank Account"
+msgstr "Enlazado a la cuenta bancaria"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__invoice
+msgid "Linked to an Invoice or Refund"
+msgstr "Vinculado a una factura o factura rectificativa"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.view_move_form
+msgid "Líneas de documentos recibidos"
+msgstr ""
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.view_move_form
+msgid "Líneas de órdenes de cobro/pago"
+msgstr ""
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_order_form
+msgid "Marcar pagado"
+msgstr ""
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid "Missing Journal on payment document %s."
+msgstr "No se ha establecido el diario de banco en el documento %s."
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid "Missing bank account on journal '%s'."
+msgstr "Falta la cuenta bancaria para el diario de banco '%s'."
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__move_date
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_document_line_create__date_type__move
+msgid "Move Date"
+msgstr "Fecha del asiento"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__move_line_ids
+msgid "Move Lines"
+msgstr "Apuntes"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "Name or Description"
+msgstr "Nombre o descripción"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_move_line__not_reconcile
+msgid "Not Reconcile"
+msgstr ""
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de error"
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_payment_document__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_payment_document__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_payment_document__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid "On payment document %s, the Payment Due Date is in the past (%s)."
+msgstr "En el documento %s, la fecha de vencimiento ha pasado (%s)"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_order__only_move_lines
+msgid "Only Account Move Lines"
+msgstr "Sólo apuntes contables"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_order__only_docs
+msgid "Only Payment Documents"
+msgstr "Sólo documentos recibidos"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_move_line__order_id
+msgid "Order"
+msgstr "Orden"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__payment_type__outbound
+msgid "Outbound"
+msgstr "Saliente"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_move.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_move.py:0
+#, python-format
+msgid "Outstanding credits"
+msgstr "Créditos pendientes"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_move.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_move.py:0
+#, python-format
+msgid "Outstanding debits"
+msgstr "Débitos pendientes"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__state__paid
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "Paid"
+msgstr "Pagado"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__date_paid
+msgid "Paid Date"
+msgstr "Fecha de pago"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__partner_id
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__partner_ids
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_order__partner_ids
+msgid "Partners"
+msgstr "Socios"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__date
+msgid "Payment Date"
+msgstr "Fecha de pago"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__document_id
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__document_id
+#: model:ir.model.fields,field_description:account_payment_document.field_account_move__payment_document_id
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_form
+msgid "Payment Document"
+msgstr "Documento"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_account_document_line
+msgid "Payment Document Lines"
+msgstr "Lineas de documento"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__date_due
+msgid "Payment Due Date"
+msgstr "Fecha de vencimiento"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__date_prefered
+msgid "Payment Due Date Type"
+msgstr "Tipo de fecha de vencimiento"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__payment_method_id
+msgid "Payment Method"
+msgstr "Método de pago"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__payment_mode
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__payment_mode_id
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "Payment Mode"
+msgstr "Modo de pago"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_account_payment_mode
+msgid "Payment Modes"
+msgstr "Modos de pago"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_account_payment_order
+msgid "Payment Order"
+msgstr "Orden de pago"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__payment_type
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__payment_type
+msgid "Payment Type"
+msgstr "Tipo de pago"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid "Payment document %s"
+msgstr "Documento %s"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid "Payment document line %s"
+msgstr "Linea de documento %s"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_move__payment_line_ids
+msgid "Payment lines"
+msgstr "Líneas de pago"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.view_invoice_tree
+msgid "Pending on receivables"
+msgstr "Pendiente sin documento"
+
+#. module: account_payment_document
+#: model:ir.actions.act_window,name:account_payment_document.account_payment_document_inbound_action
+#: model:ir.ui.menu,name:account_payment_document.account_payment_document_outbound_menu
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_tree
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_order_form
+msgid "Received Documents"
+msgstr "Documentos recibidos"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_order__payment_document_ids
+msgid "Received documents"
+msgstr "Documentos recibidos"
+
+#. module: account_payment_document
+#. openerp-web
+#: code:addons/account_payment_document/static/src/xml/account_reconciliation.xml:0
+#: code:addons/addons/Disber/account_payment_document/static/src/xml/account_reconciliation.xml:0
+#, python-format
+msgid "Related Document"
+msgstr "Documentos relacionados"
+
+#. module: account_payment_document
+#. openerp-web
+#: code:addons/account_payment_document/static/src/xml/account_reconciliation.xml:0
+#: code:addons/addons/Disber/account_payment_document/static/src/xml/account_reconciliation.xml:0
+#, python-format
+msgid "Related Order"
+msgstr "Orden relacionada"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__payment_order_id
+msgid "Related payment order"
+msgstr "Orden relacionada"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega del SMS"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_document_line_create__payment_mode__same
+msgid "Same"
+msgstr "Igual"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_document_line_create__payment_mode__same_or_null
+msgid "Same or Empty"
+msgstr "Igual o vacío"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "Search Received Documents"
+msgstr "Buscar documentos recibidos"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/wizard/account_document_line_create.py:0
+#: code:addons/addons/Disber/account_payment_document/wizard/account_document_line_create.py:0
+#, python-format
+msgid "Select Move Lines to Create Transactions"
+msgstr "Seleccione apuntes para crear transacciones"
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_payment_document__date_due
+msgid "Select a date if you selected 'Due Date' as the Payment Due Date Type."
+msgstr ""
+"Selecciona una fecha si has seleccionado 'Fecha de vencimiento' como tipo de"
+" fecha de vencimiento."
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_create_form
+msgid "Selected Move Lines to Create Transactions"
+msgstr "Apuntes seleccionados para crear transacciones"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line__state
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "State"
+msgstr "Estado"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__target_move
+msgid "Target Moves"
+msgstr "Movimientos destino"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid ""
+"The payment type (%s) is not the same as the payment type of the payment "
+"mode (%s)"
+msgstr ""
+"El tipo de pago (%s) no es el mismo que el tipo de pago del modo de pago "
+"(%s)"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid "There are no transactions on payment document %s."
+msgstr "No hay transacciones en el documento %s."
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_document_line__ml_maturity_date
+msgid ""
+"This field is used for payable and receivable journal entries. You can put "
+"the limit date for the payment of this line."
+msgstr ""
+"Este campo se utiliza en asientos pendientes de pago y de cobro. Puede "
+"establecer la fecha límite para el pago de esta entrada."
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__total_company_currency
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_tree
+msgid "Total Company Currency"
+msgstr "Total en la moneda de la compañía"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_create_form
+msgid "Total Residual"
+msgstr "Total pendiente"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_document_line_tree
+msgid "Total in Company Currency"
+msgstr "Total en moneda de la compañía"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_move_line__document_line_id
+msgid "Transaction"
+msgstr "Transacción"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__document_line_ids
+msgid "Transaction Lines"
+msgstr "Líneas de transacción"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_form
+msgid "Transactions"
+msgstr "Transacciones"
+
+#. module: account_payment_document
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_form
+msgid "Transfer Journal Entries"
+msgstr "Asientos de transferencia"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_document_line_create__date_type
+msgid "Type of Date Filter"
+msgstr "Filtro de tipo de fecha"
+
+#. module: account_payment_document
+#: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__state__unpaid
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_form
+#: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
+msgid "Unpaid"
+msgstr "Impagado"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes por leer"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: account_payment_document
+#: model:ir.model.fields,field_description:account_payment_document.field_account_payment_document__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: account_payment_document
+#: model:ir.model.fields,help:account_payment_document.field_account_payment_document__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_account_document_line_create
+msgid "Wizard to create document lines"
+msgstr "Wizard para crear lineas de documento"
+
+#. module: account_payment_document
+#: model:ir.model,name:account_payment_document.model_account_payment_line_create
+msgid "Wizard to create payment lines"
+msgstr "Asistente para crear líneas de pago"
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid "You can't cancel a received document that is already in a debit order."
+msgstr "No puede cancelar un documento recibido que ya está en una orden de cobro."
+
+#. module: account_payment_document
+#: code:addons/account_payment_document/models/account_payment_document.py:0
+#: code:addons/addons/Disber/account_payment_document/models/account_payment_document.py:0
+#, python-format
+msgid ""
+"You cannot delete a non draft payment document. You can cancel it in order "
+"to do so."
+msgstr ""
+"No puedes eliminar un documento que no esté en estado borrador. Cancélalo en"
+" su lugar."

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_payment_mode_form" model="ir.ui.view">
+            <field name="name">account.payment.mode.form</field>
+            <field name="model">account.payment.mode</field>
+            <field name='inherit_id' ref='account_payment_order.account_payment_mode_form'/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='post_move']" position="after">
+                    <field name="cancellation_account_id"
+                           attrs="{'invisible': [('charge_financed', '=', False)], 'required': [('charge_financed', '=', True)]}"/>
+                    <field name="cancellation_journal_id"
+                           attrs="{'invisible': [('charge_financed', '=', False)], 'required': [('charge_financed', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='variable_journal_ids']" position="after">
+                    <field name="take_sale_department_account"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
