@@ -23,6 +23,8 @@
         'views/account_document_line.xml',
         'views/account_move_views.xml',
         'views/account.xml',
+        'reports/account_payment_report.xml',
+        'reports/account_payment.xml',
         'data/ir_cron.xml',
     ],
     'qweb': [

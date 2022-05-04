@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="print_account_payment_document_document">
+        <t
+                t-set="doc"
+                t-value="doc.with_context({'lang': user.lang})"
+        />
+
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="oe_structure"/>
+
+                <h2>
+                    <span t-field="doc.name"/>
+                </h2>
+                <h5>
+                    <span t-field="doc.description"/>
+                </h5>
+                <div class="row mt32 mb32">
+                    <div t-if="doc.partner_id.name" class="col-2">
+                        <strong>Cliente:</strong>
+                        <p t-field="doc.partner_id.name"/>
+                    </div>
+                    <div t-if="doc.payment_mode_id.name" class="col-2">
+                        <strong>Modo de pago:</strong>
+                        <p t-field="doc.payment_mode_id.name"/>
+                    </div>
+                    <div t-if="doc.journal_id.name" class="col-2">
+                        <strong>Diario:</strong>
+                        <p t-field="doc.journal_id.name"/>
+                    </div>
+                    <div t-if="doc.company_id.name" class="col-2">
+                        <strong>Compañía:</strong>
+                        <p t-field="doc.company_id.name"/>
+                    </div>
+                    <div t-if="doc.date" class="col-2">
+                        <strong>Fecha:</strong>
+                        <p t-field="doc.date"/>
+                    </div>
+                    <div t-if="doc.date_due" class="col-2">
+                        <strong>Fecha de vencimiento:</strong>
+                        <p t-field="doc.date_due"/>
+                    </div>
+                    <div t-if="doc.description" class="col-2">
+                        <strong>Descripción:</strong>
+                        <p t-field="doc.description"/>
+                    </div>
+                </div>
+
+                <h2>Transacciones</h2>
+                <table class="table table-sm o_main_table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Comunicacion</th>
+                            <th class="text-right">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <t t-set="total_amount" t-value="0"/>
+                        <tr t-foreach="doc.document_line_ids" t-as="line">
+                            <t
+                                    t-set="total_amount"
+                                    t-value="total_amount+line.amount_currency"
+                            />
+                            <td class="text-center">
+                                <span t-field="line.communication"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="line.amount_currency"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <table class="table table-condensed">
+                            <tr class="border-black o_total">
+                                <td>
+                                    <strong>Total</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span
+                                            t-esc="formatLang(env, total_amount, currency_obj=doc.company_currency_id)"
+                                    />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="print_account_payment_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t
+                        t-call="account_payment_document.print_account_payment_document_document"
+                        t-lang="user.lang"
+                />
+            </t>
+        </t>
+    </template>
+
+</odoo>

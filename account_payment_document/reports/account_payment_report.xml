@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <report
+        id="account_print_payment_report"
+        string="Document Report"
+        model="account.payment.document"
+        report_type="qweb-pdf"
+        name="account_payment_document.print_account_payment_document"
+        file="account_payment_document.print_account_payment_document"/>
+    <!--Informe documento-->
+
+</odoo>
