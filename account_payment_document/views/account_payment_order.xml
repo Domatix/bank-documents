@@ -1,61 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <record id="account_payment_order_form" model="ir.ui.view">
-    <field name="name">account.payment.order.form</field>
-    <field name="model">account.payment.order</field>
-    <field name='inherit_id' ref='account_payment_order.account_payment_order_form'/>
-    <field name="arch" type="xml">
-<!--      <xpath expr="//button[@name=%(account_payment_order.account_payment_line_create_action)d]" position="attributes">-->
-<!--        <attribute name="attrs">{'invisible': ['|', ('only_docs', '=', True)]}</attribute>-->
-<!--      </xpath>-->
-      <field name="payment_mode_id" position="before">
-        <field name="partner_ids" widget="many2many_tags"/>
-        <field name="only_move_lines" invisible="1"/>
-        <field name="only_docs" invisible="1"/>
-      </field>
-        <field name="description" position="after">
-            <field name="expiration_move_id" attrs="{'invisible': [('expiration_move_id', '=', False)]}"/>
+    <record id="account_payment_order_form" model="ir.ui.view">
+        <field name="name">account.payment.order.form</field>
+        <field name="model">account.payment.order</field>
+        <field name='inherit_id' ref='account_payment_order.account_payment_order_form'/>
+        <field name="arch" type="xml">
+            <!--      <xpath expr="//button[@name=%(account_payment_order.account_payment_line_create_action)d]" position="attributes">-->
+            <!--        <attribute name="attrs">{'invisible': ['|', ('only_docs', '=', True)]}</attribute>-->
+            <!--      </xpath>-->
+            <field name="payment_mode_id" position="before">
+                <field name="partner_ids" widget="many2many_tags"/>
+                <field name="only_move_lines" invisible="1"/>
+                <field name="only_docs" invisible="1"/>
+            </field>
+            <field name="payment_mode_id" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_open': True}</attribute>
+                <attribute name="widget"></attribute>
+            </field>
+            <field name="description" position="after">
+                <field name="expiration_move_id" attrs="{'invisible': [('expiration_move_id', '=', False)]}"/>
+            </field>
+            <!--      <field name="payment_line_ids" position="attributes">-->
+            <!--        <attribute name="attrs">{'readonly':[('only_docs','=',True)]}</attribute>-->
+            <!--      </field>-->
+            <xpath expr="//page[@name='payment-lines']" position="after">
+                <page name="payment-documents" string="Received Documents"
+                      attrs="{'invisible': ['|', ('only_move_lines', '=', True), ('payment_type', '=', 'outbound')]}">
+                    <!--          <field name="payment_document_ids" widget="many2many" domain="[('state', '=', 'open'), ('payment_order_id', '=', False)]"/>-->
+                    <field name="payment_document_ids" readonly="1" widget="many2many"
+                           domain="[('state', '=', 'open'), ('payment_order_id', '=', False)]"/>
+                </page>
+                <page name="payment-documents" string="Generated Documents"
+                      attrs="{'invisible': ['|', ('only_move_lines', '=', True), ('payment_type', '=', 'inbound')]}">
+                    <!--          <field name="payment_document_ids" widget="many2many" domain="[('state', '=', 'open'), ('payment_order_id', '=', False)]"/>-->
+                    <field name="payment_document_ids" readonly="1" widget="many2many"
+                           domain="[('state', '=', 'open'), ('payment_order_id', '=', False)]"/>
+                </page>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="button_pay_action" type="object" states="uploaded,done" string="Marcar pagado"
+                        class="oe_highlight"/>
+            </xpath>
         </field>
-<!--      <field name="payment_line_ids" position="attributes">-->
-<!--        <attribute name="attrs">{'readonly':[('only_docs','=',True)]}</attribute>-->
-<!--      </field>-->
-      <xpath expr="//page[@name='payment-lines']" position="after">
-        <page name="payment-documents" string="Received Documents" attrs="{'invisible': ['|', ('only_move_lines', '=', True), ('payment_type', '=', 'outbound')]}">
-<!--          <field name="payment_document_ids" widget="many2many" domain="[('state', '=', 'open'), ('payment_order_id', '=', False)]"/>-->
-          <field name="payment_document_ids" readonly="1" widget="many2many" domain="[('state', '=', 'open'), ('payment_order_id', '=', False)]"/>
-        </page>
-        <page name="payment-documents" string="Generated Documents" attrs="{'invisible': ['|', ('only_move_lines', '=', True), ('payment_type', '=', 'inbound')]}">
-<!--          <field name="payment_document_ids" widget="many2many" domain="[('state', '=', 'open'), ('payment_order_id', '=', False)]"/>-->
-          <field name="payment_document_ids" readonly="1" widget="many2many" domain="[('state', '=', 'open'), ('payment_order_id', '=', False)]"/>
-        </page>
-      </xpath>
-      <xpath expr="//header" position="inside">
-        <button name="button_pay_action" type="object" states="uploaded,done" string="Marcar pagado" class="oe_highlight"/>
-      </xpath>
-    </field>
-  </record>
+    </record>
 
-  <record id="account_payment_order_tree" model="ir.ui.view">
-    <field name="name">account.payment.order.tree</field>
-    <field name="model">account.payment.order</field>
-    <field name='inherit_id' ref='account_payment_order.account_payment_order_tree'/>
-    <field name="arch" type="xml">
-      <field name="name" position="after">
-        <field name="partner_ids" widget="many2many_tags"/>
-      </field>
-    </field>
-  </record>
+    <record id="account_payment_order_tree" model="ir.ui.view">
+        <field name="name">account.payment.order.tree</field>
+        <field name="model">account.payment.order</field>
+        <field name='inherit_id' ref='account_payment_order.account_payment_order_tree'/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="partner_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
 
-  <record id="account_payment_order_search" model="ir.ui.view">
-    <field name="name">account.payment.order.search</field>
-    <field name="model">account.payment.order</field>
-    <field name='inherit_id' ref='account_payment_order.account_payment_order_search'/>
-    <field name="arch" type="xml">
-      <field name="description" position="after">
-        <field name="partner_ids"/>
-      </field>
-    </field>
-  </record>
+    <record id="account_payment_order_search" model="ir.ui.view">
+        <field name="name">account.payment.order.search</field>
+        <field name="model">account.payment.order</field>
+        <field name='inherit_id' ref='account_payment_order.account_payment_order_search'/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="partner_ids"/>
+            </field>
+        </field>
+    </record>
 
 </odoo>

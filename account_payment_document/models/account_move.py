@@ -59,7 +59,8 @@ class AccountMove(models.Model):
             record.payment_line_ids = (payment_lines)
 
     @api.depends('payment_document_id', 'payment_order_id', 'amount_residual', 'line_ids',
-                 'line_ids.amount_pending_on_receivables', 'document_line_ids', 'payment_line_ids', 'returned_payment')
+                 'line_ids.amount_pending_on_receivables', 'document_line_ids', 'payment_line_ids',
+                 'returned_payment')
     def _compute_amount_on_receivables(self):
         for record in self:
             if record.is_invoice():
@@ -159,6 +160,7 @@ class AccountMove(models.Model):
                         'position': currency_id.position,
                         'digits': [69, move.currency_id.decimal_places],
                         'payment_date': fields.Date.to_string(line.date),
+                        'has_group_break_conciliation': self.env.user.has_group("group_break_conciliation.break_conciliation_button_group_user")
                     })
                 info['title'] = type_payment
                 move.invoice_outstanding_credits_debits_widget = json.dumps(info)

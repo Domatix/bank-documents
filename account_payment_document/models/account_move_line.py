@@ -20,6 +20,8 @@ class AccountMoveLine(models.Model):
 
     not_reconcile = fields.Boolean()
 
+    document = fields.Boolean()
+
     amount_pending_on_receivables = fields.Monetary(
         string='Amount pending on receivables',
         compute='_compute_amount_on_receivables',
@@ -29,18 +31,17 @@ class AccountMoveLine(models.Model):
 
     @api.depends('payment_line_ids', 'payment_line_ids.amount_currency', 'payment_line_ids.order_id.state',
                  'bank_payment_line_id', 'document_line_ids', 'document_line_ids.amount_currency',
-                 'document_line_ids.document_id.state', 'document_line_id', 'amount_residual',
-                 'partial_reconcile_returned_ids',
+                 'document_line_ids.document_id.state', 'document_line_id', 'amount_residual', 'partial_reconcile_returned_ids',
                  'move_id.returned_payment')
     def _compute_amount_on_receivables(self):
         for record in self:
             if record.move_id.is_invoice():
                 sign = 0
-                if record.move_id.type == 'in_invoice':
-                    if record.account_internal_type == 'payable':
+                if record.move_id.type in ('in_invoice', 'out_refund'):
+                    if record.account_internal_type in ['payable', 'receivable']:
                         sign = 1
-                elif record.move_id.type == 'out_invoice':
-                    if record.account_internal_type == 'receivable':
+                elif record.move_id.type in ('out_invoice', 'in_refund'):
+                    if record.account_internal_type in ['payable', 'receivable']:
                         sign = -1
                 if record.move_id.invoice_payment_state == 'paid':
                     amount = 0
@@ -56,7 +57,7 @@ class AccountMoveLine(models.Model):
                             order_amount += partial.amount
                         else:
                             others_amount += partial.amount
-                    amount = record.balance - others_amount
+                    amount = record.balance - others_amount * -sign
                     if record.payment_line_ids.filtered(lambda r: r.order_id.state != 'cancel'):
                         amount += sum(record.payment_line_ids.mapped('amount_currency')) * sign
                     if record.document_line_ids.filtered(lambda r: r.document_id.state != 'cancel'):
@@ -84,9 +85,9 @@ class AccountMoveLine(models.Model):
         if self.move_id.is_invoice():
             if self.move_id.reference_type != 'none':
                 communication = self.move_id.ref
-                ref2comm_type = \
+                ref2comm_type =\
                     aplo.invoice_reference_type2communication_type()
-                communication_type = \
+                communication_type =\
                     ref2comm_type[self.move_id.reference_type]
             else:
                 if (
@@ -124,7 +125,7 @@ class AccountMoveLine(models.Model):
             'currency_id': currency_id,
             'amount_currency': amount_currency,
             # date is set when the user confirms the payment document
-        }
+            }
         return vals
 
     def create_document_line_from_move_line(self, document):
@@ -144,6 +145,7 @@ class AccountMoveLine(models.Model):
                 if vals["amount_currency"] < self.amount_pending_on_receivables:
                     vals["amount_currency"] = self.amount_pending_on_receivables
         return vals
+
 
     def create_payment_line_from_move_line(self, payment_order):
         res = super().create_payment_line_from_move_line(payment_order)

@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_account_document_line,access_account_document_line,model_account_document_line,base.group_user,1,1,1,1
 access_account_payment_document,access_account_payment_document,model_account_payment_document,base.group_user,1,1,1,1
+access_account_payment_document_recovery_line,access_account_payment_document_recovery_line,model_account_payment_document_recovery_line,base.group_user,1,1,1,1

@@ -103,6 +103,10 @@ class AccountPaymentDocument(models.Model):
 
     description = fields.Char()
 
+    returned = fields.Boolean(
+        string='Recuperado',
+    )
+
     # document_due_move_account_id = fields.Many2one(
     #     'account.account',
     #     'Debit default account for account moves for expiration',
@@ -119,6 +123,12 @@ class AccountPaymentDocument(models.Model):
     expiration_move_id = fields.Many2one(
         comodel_name='account.move',
         string='Expiration Account Move')
+
+    recovery_line_ids = fields.One2many(
+        comodel_name='account.payment.document.recovery.line',
+        inverse_name='document_id',
+        string='Histórico recuperaciones',
+        required=False)
 
     def copy(self, default=None):
         default = dict(default or {})
@@ -217,10 +227,84 @@ class AccountPaymentDocument(models.Model):
             })
         return True
 
+    def _prepare_unpaid_move_vals(self):
+        self.ensure_one()
+        return {
+            "name": "/",
+            "ref": _("Recuperación %s") % self.name,
+            "journal_id": self.journal_id.id,
+            "date": self.date,
+            "company_id": self.company_id.id,
+        }
+
     def action_unpaid(self):
+        self.ensure_one()
+        if self.payment_type != "inbound":
+            raise UserError(
+                _("Solo se pueden recuperar documentos recibidos.")
+            )
+        if self.state not in ['open', 'advanced', 'paid']:
+            return True
+
+        move_line_model = self.env["account.move.line"]
+        unpaid_move = self.env["account.move"].create(self._prepare_unpaid_move_vals())
+        for move in self.move_ids:
+            debit_line = move.line_ids.filtered(lambda r: r.debit)
+            document_id = debit_line.move_id.payment_document_id
+            order_id = document_id.payment_order_id
+            unpaid_debit_line_vals = {
+                "name": _("Recuperación %s") % self.name,
+                "debit": move.amount_total_signed,
+                "credit": 0.0,
+                "account_id": debit_line.account_id.id,
+                "partner_id": move.partner_id.id,
+                "journal_id": move.journal_id.id,
+                "move_id": unpaid_move.id,
+            }
+            unpaid_debit_move_line = move_line_model.with_context(check_move_validity=False).create(
+                unpaid_debit_line_vals
+            )
+
+            credit_line = debit_line.matched_credit_ids.mapped("credit_move_id")
+            credit_line.remove_move_reconcile()
+            (credit_line | unpaid_debit_move_line).with_context(
+                check_move_validity=False
+            ).reconcile()
+            credit_line.mapped("matched_debit_ids").write(
+                {"origin_returned_move_ids": [(6, 0, debit_line.ids)]}
+            )
+
+            unpaid_credit_move_line = move_line_model.create({
+                "name": unpaid_move.ref,
+                "debit": 0.0,
+                "credit": move.amount_total_signed,
+                "account_id": credit_line.move_id.line_ids.filtered(lambda r: r.debit)[0].account_id.id,
+                "move_id": unpaid_move.id,
+                "journal_id": unpaid_move.journal_id.id,
+            })
+
+            # self._auto_reconcile(unpaid_credit_move_line, credit_line, move.amount_total_signed)
+            unpaid_move.post()
+
+            (credit_line.move_id.line_ids.filtered(lambda r: r.debit) | unpaid_credit_move_line).reconcile()
+
+            payline = self.env['account.payment.line'].search([
+                ('order_id', '=', order_id.id),
+                ('move_line_id', '=', debit_line.id)])
+            payline.move_line_id = False
+
+            self.env['account.payment.document.recovery.line'].create({
+                'document_id': self.id,
+                'recovery_move_id': unpaid_move.id,
+                'order_id': order_id.id
+            })
+
         self.write({
             'state': 'unpaid',
+            'returned': True,
+            'payment_order_id': False
             })
+
         return True
 
     def action_paid_cancel(self):
@@ -233,6 +317,9 @@ class AccountPaymentDocument(models.Model):
                 move_line.remove_move_reconcile()
             move.with_context(force_delete=True).unlink()
         self.action_cancel()
+        for line in self.document_line_ids.move_line_id:
+            if line.amount_pending_on_receivables:
+                line.not_reconcile = False
         return True
 
     def action_cancel(self):
@@ -315,7 +402,6 @@ class AccountPaymentDocument(models.Model):
             'payment_document_id': self.id,
             'line_ids': [],
             }
-
         if self.document_line_ids:
             vals.update({"date": self.date or fields.Date.today()})
 
@@ -390,6 +476,7 @@ class AccountPaymentDocument(models.Model):
         partner_id = self.partner_id.id
         vals.update({
             'name': name,
+            'document': True,
             'partner_id': partner_id,
             'not_reconcile': True,
             'account_id': account_id,

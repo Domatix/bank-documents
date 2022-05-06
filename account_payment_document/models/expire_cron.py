@@ -79,7 +79,7 @@ class ExpireOrderCron(models.Model):
                         # charge_financed = True, we create the cancellation move.
                         if doc:
                             doc = doc[0].document_id
-                            if doc.payment_mode_id.charge_financed:
+                            if doc.payment_mode_id.charge_financed and doc.state != 'paid':
                                 if doc.payment_type == 'outbound':
                                     name = _('Expired Payment document %s') % doc.name
                                 else:
@@ -113,8 +113,8 @@ class ExpireOrderCron(models.Model):
                                             currency_id = reconciled_line[0].currency_id
                                             amount_currency = reconciled_line[0].amount_currency
 
-                                        total_debit = sum(line.debit for line in move.line_ids)
-                                        total_credit = sum(line.credit for line in move.line_ids)
+                                        total_debit = sum(line.debit for line in move.line_ids.filtered(lambda r: r.partner_id == pline.partner_id))
+                                        total_credit = sum(line.credit for line in move.line_ids.filtered(lambda r: r.partner_id == pline.partner_id))
                                         debit_line = {
                                             'name': name,
                                             'partner_id': doc.partner_id.id,
@@ -255,8 +255,8 @@ class ExpireOrderCron(models.Model):
                             #     lines_to_rec.reconcile()
 
                 for bline in order.bank_line_ids:
-                    if all([pline.ml_maturity_date <= today
-                            and not pline.move_line_id.reconciled
+                    if all([pline.ml_maturity_date and pline.ml_maturity_date <= today
+                            and not pline.move_line_id.reconciled and not pline.move_line_id.partial_reconcile_returned_ids
                             for pline in bline.payment_line_ids]):
                         bline.reconcile_payment_lines()
 

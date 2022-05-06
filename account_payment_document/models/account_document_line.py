@@ -47,7 +47,7 @@ class AccountDocumentLine(models.Model):
         help="Label of the payment that will be seen by the destinee")
     communication_type = fields.Selection([
         ('normal', 'Free'),
-    ], string='Communication Type', required=True, default='normal')
+        ], string='Communication Type', required=True, default='normal')
 
     invoice_state = fields.Selection(
         related="move_line_id.move_id.invoice_payment_state")
@@ -85,3 +85,30 @@ class AccountDocumentLine(models.Model):
             self.amount_currency = 0.0
             self.currency_id = self.env.user.company_id.currency_id
             self.communication = False
+
+    def create(self, vals):
+        res = super(AccountDocumentLine, self).create(vals)
+        for line in res:
+            if line.move_line_id and line.move_line_id.move_id.is_invoice():
+                line.move_line_id.move_id.message_post(
+                    body="Factura introducida en documento {}. Cantidad: {}".format(line.document_id.name, line.amount_currency)
+                )
+        return res
+
+    def unlink(self):
+        for line in self:
+            if line.move_line_id and line.move_line_id.move_id.is_invoice():
+                line.move_line_id.move_id.message_post(
+                    body="Factura extraída del documento {}.".format(line.document_id.name)
+                )
+        return super(AccountDocumentLine, self).unlink()
+
+
+
+    def write(self, values):
+        for record in self:
+            if 'amount_currency' in values and record.move_line_id and record.move_line_id.move_id.is_invoice():
+                record.move_line_id.move_id.message_post(
+                    body="Actualizada cantidad en documento {}. {} {} {}".format(record.document_id.name, record.amount_currency, u'\N{Rightwards Arrow with Equilateral Arrowhead}', values['amount_currency'])
+                )
+        return super(AccountDocumentLine, self).write(values)

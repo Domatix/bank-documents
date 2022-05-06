@@ -72,6 +72,7 @@
                 </xpath>
             </field>
         </record>
+
         <record id="view_account_invoice_tree_inherit" model="ir.ui.view">
             <field name="name">view.account.invoice.tree.inherit</field>
             <field name="model">account.move</field>
@@ -83,5 +84,6 @@
                 </field>
             </field>
         </record>
+
     </data>
 </odoo>

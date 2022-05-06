@@ -298,6 +298,12 @@ msgid "Document lines"
 msgstr "Lineas de documento"
 
 #. module: account_payment_document
+#: model:ir.actions.report,name:account_payment_document.account_print_payment_report
+msgid "Document Report"
+msgstr "Informe documento"
+
+
+#. module: account_payment_document
 #: model:ir.model.fields.selection,name:account_payment_document.selection__account_payment_document__state__draft
 #: model_terms:ir.ui.view,arch_db:account_payment_document.account_payment_document_search
 msgid "Draft"

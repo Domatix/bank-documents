@@ -348,7 +348,7 @@ class AccountPaymentOrder(models.Model):
         super(AccountPaymentOrder, self).generated2uploaded()
         for order in self:
             if order.only_docs:
-                for line in order.payment_line_ids.filtered(lambda r: not r.move_line_id.reconciled):
+                for line in order.payment_line_ids.filtered(lambda r: not r.move_line_id.reconciled and not r.move_line_id.move_id.is_invoice()):
                     lines_to_rec = line.move_line_id
                     lines_to_rec |= order.move_ids.mapped('line_ids').filtered(
                         lambda r: lines_to_rec.id in r.bank_payment_line_id.mapped(
@@ -382,6 +382,9 @@ class AccountPaymentOrder(models.Model):
                     'state': 'open'
                 })
         self.payment_line_ids.move_line_id._compute_amount_on_receivables()
+        for line in self.payment_line_ids.move_line_id:
+            if line.amount_pending_on_receivables:
+                line.not_reconcile = False
 
     def write(self, values):
         if self.payment_type == 'inbound' and 'payment_line_ids' in values:
@@ -423,6 +426,13 @@ class AccountPaymentOrder(models.Model):
                                 "El importe establecido de la linea {} supera la cantidad pendiente sin "
                                 "documento.".format(
                                     payment_line.communication))
+                        elif move_line_id.document:
+                            if move_line_id.amount_residual != new_amount:
+                                raise exceptions.Warning(
+                                    "Si no se introduce el importe completo del documento {} no podrá remesarse la cantidad pendiente.".format(
+                                        move_line_id.name
+                                    )
+                                )
                         if new_amount > move_line_id.amount_residual:
                             raise exceptions.Warning(
                                 "El importe establecido de la linea {} supera el importe residual.".format(
